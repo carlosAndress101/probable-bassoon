@@ -17,7 +17,6 @@ export const requireAuth = async (
   jwt.verify(token, "secret", (err, user) => {
     if (err) return res.status(403).json([{ message: "Forbidden" }]);
 
-    console.log(user)
     req.user = user;
 
     next();

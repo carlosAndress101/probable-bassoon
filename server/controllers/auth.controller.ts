@@ -45,7 +45,6 @@ export const loginHandler = async (
   req: Request<unknown, unknown, LoginSchemaType>,
   res: Response
 ) => {
-  console.log(req.body);
   // find existing user
   const userFound = await User.findOne({ email: req.body.email });
   if (!userFound) throw new NotFound("User not found");
