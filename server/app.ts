@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from 'express'; // Import necessary type
 import express from "express";
 
 import cors from "cors";
@@ -5,6 +6,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.routes";
 
 import { corsOptions } from "./config";
+import { HttpError } from 'http-errors';
 
 const app = express();
 
@@ -22,9 +24,8 @@ app.use((req, res, next) => {
   next(error);
 });
 
-// error handler
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err, req, res, next) => {
+
+app.use((err:HttpError, req: Request, res: Response, next: NextFunction) => {
   const status = err.status || 500;
   const message = err.message || "Internal server error";
   res.status(status).json([
